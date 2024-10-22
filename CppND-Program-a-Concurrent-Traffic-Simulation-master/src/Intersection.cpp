@@ -8,6 +8,8 @@
 #include "Intersection.h"
 #include "Vehicle.h"
 
+using namespace std;
+
 /* Implementation of class "WaitingVehicles" */
 
 int WaitingVehicles::getSize()
@@ -63,6 +65,10 @@ void Intersection::addVehicleToQueue(std::shared_ptr<Vehicle> vehicle)
 
     // L2.2 : First, add the new vehicle to the waiting line by creating a promise, a corresponding future and then adding both to _waitingVehicles. 
     // Then, wait until the vehicle has been granted entry. 
+    promise<string> prms;
+    future<string> ftr = prms.get_future();
+
+    ftr.get();  // 
 
     std::cout << "Intersection #" << _id << ": Vehicle #" << vehicle->getID() << " is granted entry." << std::endl;
 }
