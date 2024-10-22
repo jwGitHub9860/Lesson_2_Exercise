@@ -81,8 +81,8 @@ void Vehicle::drive()
                 // the object _currDestination and a shared pointer to this using the get_shared_this() function. 
                 // Then, wait for the data to be available before proceeding to slow down.
 
-                future<shared_ptr<Vehicle>> ftr = async(Intersection::addVehicleToQueue, _currDestination);    // starts up task
-                shared_ptr<Vehicle> result = ftr.get()  // waits for data to be available
+                future<shared_ptr<Vehicle>> ftr = async(launch::deferred, Intersection::addVehicleToQueue, _currDestination);    // starts up task
+                shared_ptr<Vehicle> result = ftr.get();  // waits for data to be available
 
                 // slow down and set intersection flag
                 _speed /= 10.0;
