@@ -3,6 +3,8 @@
 #include <chrono>
 #include <future>
 #include <random>
+#include <algorithm>
+#include <vector>
 
 #include "Street.h"
 #include "Intersection.h"
@@ -28,7 +30,13 @@ void WaitingVehicles::permitEntryToFirstInQueue()
     // L2.3 : First, get the entries from the front of _promises and _vehicles. 
     // Then, fulfill promise and send signal back that permission to enter has been granted.
     // Finally, remove the front elements from both queues. 
+    _promises.begin();  // get the entries from the front of _promises
+    _vehicles.begin();  // get the entries from the front of _vehicles
 
+
+
+    remove(_promises.begin());
+    remove(_vehicles.begin());
 }
 
 /* Implementation of class "Intersection" */
