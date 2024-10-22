@@ -15,10 +15,10 @@ class WaitingVehicles
 {
 public:
     // getters / setters
-    int getSize();
+    int getSize();  // getter
 
     // typical behaviour methods
-    void pushBack(std::shared_ptr<Vehicle> vehicle, std::promise<void> &&promise);
+    void pushBack(std::shared_ptr<Vehicle> vehicle, std::promise<void> &&promise);  // move semantics
     void permitEntryToFirstInQueue();
 
 private:

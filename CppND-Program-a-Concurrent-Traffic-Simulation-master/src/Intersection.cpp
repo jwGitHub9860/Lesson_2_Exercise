@@ -15,10 +15,10 @@ int WaitingVehicles::getSize()
     return _vehicles.size();
 }
 
-void WaitingVehicles::pushBack(std::shared_ptr<Vehicle> vehicle, std::promise<void> &&promise)
+void WaitingVehicles::pushBack(std::shared_ptr<Vehicle> vehicle, std::promise<void> &&promise)  // takes shared pointer to vehicle & shares r value reference (&&promise) to promise
 {
     _vehicles.push_back(vehicle);
-    _promises.push_back(std::move(promise));
+    _promises.push_back(std::move(promise));    // moves promise into promises vector       take r value reference (&&promise) & redirecting some pointers internally not making a copy, but moving the original into vector
 }
 
 void WaitingVehicles::permitEntryToFirstInQueue()

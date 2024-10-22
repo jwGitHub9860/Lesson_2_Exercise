@@ -72,7 +72,7 @@ void Vehicle::drive()
             this->setPosition(xv, yv);
 
             // check wether halting position in front of destination has been reached
-            if (completion >= 0.9 && !hasEnteredIntersection)
+            if (completion >= 0.9 && !hasEnteredIntersection)   // driving towards intersection     0.9 ----> 90%
             {
                 // Task L2.1 : Start up a task using std::async which takes a reference to the method Intersection::addVehicleToQueue, 
                 // the object _currDestination and a shared pointer to this using the get_shared_this() function. 
