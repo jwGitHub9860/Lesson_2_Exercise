@@ -28,6 +28,7 @@ void WaitingVehicles::permitEntryToFirstInQueue()
     // L2.3 : First, get the entries from the front of _promises and _vehicles. 
     // Then, fulfill promise and send signal back that permission to enter has been granted.
     // Finally, remove the front elements from both queues. 
+
 }
 
 /* Implementation of class "Intersection" */
@@ -65,10 +66,11 @@ void Intersection::addVehicleToQueue(std::shared_ptr<Vehicle> vehicle)
 
     // L2.2 : First, add the new vehicle to the waiting line by creating a promise, a corresponding future and then adding both to _waitingVehicles. 
     // Then, wait until the vehicle has been granted entry. 
-    promise<string> prms;   // creates promise
-    future<string> ftr = prms.get_future();     // corresponding future
+    promise<void> prms;   // creates promise    NOT adding anything to promise
+    future<void> ftr = prms.get_future();     // corresponding future    NOT adding anything to future
+    _waitingVehicles.pushBack(vehicle, move(prms)); // adds promise & vehicle to _waitingVehicles
 
-    ftr.get();  // 
+    ftr.wait();  // waits until the vehicle has been granted entry
 
     std::cout << "Intersection #" << _id << ": Vehicle #" << vehicle->getID() << " is granted entry." << std::endl;
 }
