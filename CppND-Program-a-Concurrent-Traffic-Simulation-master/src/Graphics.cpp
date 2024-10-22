@@ -48,16 +48,15 @@ void Graphics::drawTrafficObjects()
             // cast object type from TrafficObject to Intersection
             std::shared_ptr<Intersection> intersection = std::dynamic_pointer_cast<Intersection>(it);
 
-            // set color according to traffic light and draw the intersection as a circle
-            cv::Scalar trafficLightColor = intersection->trafficLightIsGreen() == true ? cv::Scalar(0, 255, 0) : cv::Scalar(0, 0, 255);
-            cv::circle(_images.at(1), cv::Point2d(posx, posy), 25, trafficLightColor, -1);
+            // intersections are green
+            cv::circle(_images.at(1), cv::Point2d(posx, posy), 25, cv::Scalar(0, 255, 0), -1);
         }
         else if (it->getType() == ObjectType::objectVehicle)
         {
             cv::RNG rng(it->getID());
             int b = rng.uniform(0, 255);
             int g = rng.uniform(0, 255);
-            int r = sqrt(255*255 - g*g - b*b); // ensure that length of color vector is always 255
+            int r = sqrt(255*255 - g*g - r*r); // ensure that length of color vector is always 255
             cv::Scalar vehicleColor = cv::Scalar(b,g,r);
             cv::circle(_images.at(1), cv::Point2d(posx, posy), 50, vehicleColor, -1);
         }
@@ -66,10 +65,7 @@ void Graphics::drawTrafficObjects()
     float opacity = 0.85;
     cv::addWeighted(_images.at(1), opacity, _images.at(0), 1.0 - opacity, 0, _images.at(2));
 
-    // The following code allows for resizing in case of graphics window taking up a large space 
-    cv::Mat img;
-    cv::resize(_images.at(2), img, cv::Size(1040,720),0,0,1);
-    cv::imshow(_windowName, img);
-    
+    // display background and overlay image
+    cv::imshow(_windowName, _images.at(2));
     cv::waitKey(33);
 }
